@@ -1,0 +1,56 @@
+# Option + Tab to cycle through workspaces, Option + Shift + Tab to cycle backwards through workspaces. Both support wraparound.
+alt - tab : yabai -m space --focus next || yabai -m space --focus first
+alt + shift - tab : yabai -m space --focus prev || yabai -m space --focus last
+
+# Option + # to switch to a specific workspace (if it exists).
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - 5 : yabai -m space --focus 5
+alt - 6 : yabai -m space --focus 6
+alt - 7 : yabai -m space --focus 7
+alt - 8 : yabai -m space --focus 8
+alt - 9 : yabai -m space --focus 9
+
+# Option + Shift + # to move windows to a specific workspace (if it exists).
+alt + shift - 1 : yabai -m window --space 1 && yabai -m space --focus 1
+alt + shift - 2 : yabai -m window --space 2 && yabai -m space --focus 2
+alt + shift - 3 : yabai -m window --space 3 && yabai -m space --focus 3
+alt + shift - 4 : yabai -m window --space 4 && yabai -m space --focus 4
+alt + shift - 5 : yabai -m window --space 5 && yabai -m space --focus 5
+alt + shift - 6 : yabai -m window --space 6 && yabai -m space --focus 6
+alt + shift - 7 : yabai -m window --space 7 && yabai -m space --focus 7
+alt + shift - 8 : yabai -m window --space 8 && yabai -m space --focus 8
+alt + shift - 9 : yabai -m window --space 9 && yabai -m space --focus 9
+
+# Option + N to create new workspace and focus it.
+alt - n : yabai -m space --create && \
+  index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
+  yabai -m space --focus "${index}"
+
+# Option + Shift + N to create a new workspace, focus it and move the focused window to it.
+alt + shift - n : yabai -m space --create && \
+  index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
+  yabai -m window --space "${index}" && \
+  yabai -m space --focus "${index}"
+
+# Option + D to delete the focused workspace (only if there are at least 2 workspaces).
+alt - d : yabai -m query --spaces --display | jq -re 'map(select(."native-fullscreen" == 0)) | length > 1' && \
+  yabai -m space --destroy
+
+# Option + H,J,K,L to navigate between windows in the focused workspace.
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+# Option + Shift + H,J,K,L to swap windows in the focused workspace.
+alt + shift - h : yabai -m window --swap west
+alt + shift - j : yabai -m window --swap south
+alt + shift - k : yabai -m window --swap north
+alt + shift - l : yabai -m window --swap east
+
+# Command + Tab to cycle through stacks, Command + Shift + Tab to cycle backwards through stacks. Both support wraparound.
+cmd - tab : yabai -m window --focus stack.next || yabai -m window --focus stack.first
+cmd + shift - tab : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
