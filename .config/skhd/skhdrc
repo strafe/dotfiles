@@ -50,7 +50,3 @@ alt + shift - h : yabai -m window --swap west
 alt + shift - j : yabai -m window --swap south
 alt + shift - k : yabai -m window --swap north
 alt + shift - l : yabai -m window --swap east
-
-# Command + Tab to cycle through stacks, Command + Shift + Tab to cycle backwards through stacks. Both support wraparound.
-cmd - tab : yabai -m window --focus stack.next || yabai -m window --focus stack.first
-cmd + shift - tab : yabai -m window --focus stack.prev || yabai -m window --focus stack.last

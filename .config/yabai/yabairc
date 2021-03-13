@@ -2,7 +2,7 @@
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
-# use the bsp layout mode by default, certain windows are floated by rules and stacks are sometimes used with skhd hotkeys.
+# use the bsp layout mode by default, certain windows are floated by rules.
 yabai -m config layout                       bsp
 
 # general settings (section these out in the future).
@@ -29,19 +29,20 @@ yabai -m config window_border_width          6
 yabai -m config active_window_border_color   0xff596572
 yabai -m config normal_window_border_color   0xff565656
 
-# padding, my bar is 24 pixels in height.
+# padding.
 yabai -m config top_padding                  24
 yabai -m config bottom_padding               24
 yabai -m config left_padding                 24
 yabai -m config right_padding                24
 yabai -m config window_gap                   24
-yabai -m config external_bar                 all:24:0
+yabai -m config external_bar                 all:0:0
 
 # rules (float and remove border from certain windows).
 yabai -m rule --add app="^(System Preferences|System Information|Calculator|Stickies|Tot)$" manage=off border=off
 yabai -m rule --add app="^Discord( Canary)?$" title="^Discord Updater$" manage=off border=off
-yabai -m rule --add app="^Finder$" title="^Finder Preferences$" manage=off border=off
+yabai -m rule --add app="^Finder$" title="^(Finder Preferences|Bin)$" manage=off border=off
 yabai -m rule --add app="^Safari$" title="^(General|Tabs|AutoFill|Passwords|Search|Security|Privacy|Websites|Extensions|Advanced)$" manage=off border=off
+yabai -m rule --add app="^Sip$" title="^General$" manage=off border=off
 
 # signals (toggle borders off on most floating windows, destory spaces that have no windows left as long as there are 2 or more spaces).
 yabai -m signal --add event=window_created action='yabai -m query --windows --window $YABAI_WINDOW_ID | jq -er ".floating == 1 and .border == 1" && yabai -m window $YABAI_WINDOW_ID --toggle border'
