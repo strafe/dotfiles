@@ -30,12 +30,12 @@ yabai -m config active_window_border_color   0xff596572
 yabai -m config normal_window_border_color   0xff565656
 
 # padding.
-yabai -m config top_padding                  24
-yabai -m config bottom_padding               24
-yabai -m config left_padding                 24
-yabai -m config right_padding                24
-yabai -m config window_gap                   24
-yabai -m config external_bar                 all:0:0
+yabai -m config top_padding                  12
+yabai -m config bottom_padding               12
+yabai -m config left_padding                 12
+yabai -m config right_padding                12
+yabai -m config window_gap                   12
+yabai -m config external_bar                 all:24:0
 
 # rules (float and remove border from certain windows).
 yabai -m rule --add app="^(System Preferences|System Information|Calculator|Stickies|Tot)$" manage=off border=off
@@ -44,8 +44,8 @@ yabai -m rule --add app="^Finder$" title="^(Finder Preferences|Bin)$" manage=off
 yabai -m rule --add app="^Safari$" title="^(General|Tabs|AutoFill|Passwords|Search|Security|Privacy|Websites|Extensions|Advanced)$" manage=off border=off
 yabai -m rule --add app="^Sip$" title="^General$" manage=off border=off
 
-# signals (toggle borders off on most floating windows, destory spaces that have no windows left as long as there are 2 or more spaces).
+# signals (toggle borders off on most floating windows, destory spaces that have no windows left as long as there are 5 or more spaces).
 yabai -m signal --add event=window_created action='yabai -m query --windows --window $YABAI_WINDOW_ID | jq -er ".floating == 1 and .border == 1" && yabai -m window $YABAI_WINDOW_ID --toggle border'
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --space | jq -er 'map(select(.\"native-fullscreen\") == 0) | length == 0' && \
-    yabai -m query --spaces --display | jq -re 'map(select(.\"native-fullscreen\" == 0)) | length > 1' && \
+    yabai -m query --spaces --display | jq -re 'map(select(.\"native-fullscreen\" == 0)) | length > 4' && \
     yabai -m space --destroy"
