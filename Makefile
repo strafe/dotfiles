@@ -5,7 +5,7 @@ brew:
 
 stow:
 	# Mirror directory structure first to avoid symlinking directories.
-	rsync -a --filter="-! */" "${HOME}/.dotfiles/" "${HOME}"
-	stow --verbose --restow --ignore '(.gitattributes|.DS_Store|Makefile)' --dir="${HOME}/.dotfiles" "."
+	rsync --archive --filter="-! */" "${HOME}/.dotfiles/home/" "${HOME}"
+	stow --restow --ignore '.DS_Store' --dir="${HOME}/.dotfiles" "home"
 
 .PHONY: all stow brew
