@@ -46,6 +46,7 @@ yabai -m rule --add app="^Sip$" title="^General$" manage=off border=off
 
 # signals (toggle borders off on most floating windows, destory spaces that have no windows left as long as there are 5 or more spaces).
 yabai -m signal --add event=window_created action='yabai -m query --windows --window $YABAI_WINDOW_ID | jq -er ".floating == 1 and .border == 1" && yabai -m window $YABAI_WINDOW_ID --toggle border'
+yabai -m signal --add event=space_changed action='yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id)'
 yabai -m signal --add event=application_terminated action="yabai -m query --spaces --space | jq -er '.index > 4' && \
     yabai -m query --windows --space | jq -er 'map(select(.\"native-fullscreen\") == 0) | length == 0' && \
     yabai -m space --destroy"
