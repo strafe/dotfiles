@@ -17,8 +17,8 @@ HISTFILE="${XDG_DATA_HOME}/zsh/history"
 
 # aliases.
 alias c='clear'
-alias ls='gls -ah --group-directories-first --color=auto'
-alias ll='gls -lah --group-directories-first --color=auto'
+alias la='gls -hA --group-directories-first --color=auto'
+alias ll='gls -lhA --group-directories-first --color=auto'
 alias vi='nvim'
 alias history='history 0'
 
