@@ -6,6 +6,6 @@ brew:
 stow:
 	# Mirror directory structure first to avoid symlinking directories.
 	rsync --archive --filter="-! */" "${HOME}/.dotfiles/home/" "${HOME}"
-	stow --restow --ignore '.DS_Store' --dir="${HOME}/.dotfiles" "home"
+	stow --restow --ignore '(.DS_Store|.gitkeep)' --dir="${HOME}/.dotfiles" "home"
 
 .PHONY: all stow brew
